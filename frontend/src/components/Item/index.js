@@ -4,6 +4,7 @@ import React from "react";
 import agent from "../../agent";
 import { connect } from "react-redux";
 import marked from "marked";
+import placeholder from "../../imgs/placeholder.png";
 import {
   ITEM_PAGE_LOADED,
   ITEM_PAGE_UNLOADED,
@@ -29,6 +30,7 @@ class Item extends React.Component {
     );
   }
 
+
   componentWillUnmount() {
     this.props.onUnload();
   }
@@ -37,7 +39,6 @@ class Item extends React.Component {
     if (!this.props.item) {
       return null;
     }
-
     const markup = {
       __html: marked(this.props.item.description, { sanitize: true }),
     };
@@ -51,6 +52,7 @@ class Item extends React.Component {
             <div className="col-6">
               <img
                 src={this.props.item.image}
+                onError = {(e) => {e.target.src = placeholder}}
                 alt={this.props.item.title}
                 className="item-img"
                 style={{ height: "500px", width: "100%", borderRadius: "6px" }}
